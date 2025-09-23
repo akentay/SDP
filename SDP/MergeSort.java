@@ -1,4 +1,4 @@
-package algos;
+package SDP;
 
 public class MergeSort {
     private final MetricsCollector metrics;

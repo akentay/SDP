@@ -1,4 +1,4 @@
-package algos;
+package SDP;
 
 public class MetricsCollector {
     private long comparisons = 0;

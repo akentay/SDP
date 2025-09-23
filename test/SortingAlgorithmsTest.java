@@ -1,5 +1,4 @@
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+package test;
 
 public class SortingAlgorithmsTest {
 
@@ -8,6 +7,11 @@ public class SortingAlgorithmsTest {
         int[] arr = {5, 3, 8, 1, 2};
         MergeSort.sort(arr);
         assertArrayEquals(new int[]{1, 2, 3, 5, 8}, arr);
+    }
+
+    private void assertArrayEquals(int[] is, int[] arr) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'assertArrayEquals'");
     }
 
     @Test

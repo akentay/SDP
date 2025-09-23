@@ -1,4 +1,4 @@
-package algos;
+package SDP;
 
 import java.util.Random;
 import java.util.Arrays;
