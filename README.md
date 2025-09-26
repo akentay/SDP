@@ -1,6 +1,6 @@
 # SDP
-📘 Assignment 1 – Divide and Conquer Algorithms
-🎯 Learning Goals
+Assignment 1 – Divide and Conquer Algorithms
+Learning Goals
 
 Implement classic divide-and-conquer algorithms with safe recursion patterns.
 
@@ -10,8 +10,8 @@ Collect metrics (execution time, recursion depth, comparisons/allocations).
 
 Communicate results via report and maintain a clean Git history.
 
-⚙️ Implemented Algorithms
-1. MergeSort (D&C, Master Case 2)
+Implemented Algorithms
+1.MergeSort (D&C, Master Case 2)
 
 Uses a linear-time merge procedure.
 
@@ -163,7 +163,7 @@ log
 𝑛
 )
 T(n)=2T(n/2)+Θ(n)⇒Θ(nlogn)
-🧪 Metrics
+Metrics
 
 Execution Time (measured with System.nanoTime()).
 
@@ -173,7 +173,7 @@ Comparisons / Allocations (tracked via MetricsCollector).
 
 CSV Export: results are written for plotting.
 
-📊 Results & Analysis
+Results & Analysis
 
 Time vs n: MergeSort and QuickSort scale as Θ(n log n), while Select is linear Θ(n).
 
@@ -181,7 +181,7 @@ Depth vs n: QuickSort depth remains bounded near 2*log₂(n).
 
 Constant factors: Insertion sort cutoff improves MergeSort for small n; cache effects are visible at large n.
 
-📌 Summary
+Summary
 
 Theoretical predictions match measurements closely.
 
@@ -191,13 +191,7 @@ Deterministic Select is slower in practice than randomized QuickSelect but provi
 
 Closest Pair demonstrates the power of divide-and-conquer in geometry.
 
-🛠️ Project Workflow
-
-Branches:
-
-main: only working releases.
-
-feature/mergesort, feature/quicksort, feature/select, feature/closest, feature/metrics.
+Project Workflow
 
 Commit Storyline followed as per assignment:
 
@@ -223,7 +217,7 @@ fix: edge cases
 
 release: v1.0
 
-✅ Testing
+Testing
 
 Sorting verified on random and adversarial arrays.
 
