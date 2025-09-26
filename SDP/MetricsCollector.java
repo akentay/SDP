@@ -5,6 +5,7 @@ public class MetricsCollector {
     private long swaps = 0;
     private int maxRecursionDepth = 0;
     private int currentDepth = 0;
+    private long allocations = 0;
     private long startTime;
     private long endTime;
 
@@ -22,6 +23,7 @@ public class MetricsCollector {
 
     public void incrementComparisons() { comparisons++; }
     public void incrementSwaps() { swaps++; }
+    public void incrementAllocations() { allocations++; }
 
     public void enterRecursion() {
         currentDepth++;
@@ -36,5 +38,12 @@ public class MetricsCollector {
 
     public long getComparisons() { return comparisons; }
     public long getSwaps() { return swaps; }
+    public long getAllocations() { return allocations; }
     public int getMaxRecursionDepth() { return maxRecursionDepth; }
+
+    // CSV writer (returns a line with metrics)
+    public String toCSV(String algorithmName, int n) {
+        return algorithmName + "," + n + "," + getElapsedTime() + "," 
+                + comparisons + "," + swaps + "," + allocations + "," + maxRecursionDepth;
+    }
 }
