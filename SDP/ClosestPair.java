@@ -3,6 +3,7 @@ package SDP;
 import java.util.*;
 
 public class ClosestPair {
+    // Divide-and-Conquer algorithm for the Closest Pair of Points problem
     public static class Point {
         int x, y;
         Point(int x, int y) { this.x = x; this.y = y; }
@@ -37,13 +38,13 @@ public class ClosestPair {
     }
 
     private double bruteForce(Point[] points, int left, int right) {
-        double min = Double.MAX_VALUE;
+        double minDist = Double.MAX_VALUE;
         for (int i = left; i <= right; i++) {
             for (int j = i + 1; j <= right; j++) {
-                min = Math.min(min, distance(points[i], points[j]));
+                minDist = Math.min(minDist, distance(points[i], points[j]));
             }
         }
-        return min;
+        return minDist;
     }
 
     private double distance(Point p1, Point p2) {
