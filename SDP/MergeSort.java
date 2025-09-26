@@ -1,85 +1,57 @@
 package SDP;
 
-public class MergeSort {
-    private final MetricsCollector metrics;
-    private static final int CUTOFF = 10; // small arrays use insertion sort
+import java.util.Random;
 
-    public MergeSort(MetricsCollector metrics) {
-        this.metrics = metrics;
-    }
+public class ArrayUtils {
+    private static final Random rand = new Random();
 
-    public void sort(int[] arr) {
-        metrics.startTimer();
-        mergeSort(arr, new int[arr.length], 0, arr.length - 1);
-        metrics.stopTimer();
-    }
-
-    private void mergeSort(int[] arr, int[] temp, int left, int right) {
-        metrics.enterRecursion();
-
-        // cutoff: use insertion sort for small arrays
-        if (right - left <= CUTOFF) {
-            insertionSort(arr, left, right);
-            metrics.exitRecursion();
-            return;
+    // swap two elements in array
+    public static void swap(int[] arr, int i, int j) {
+        if (arr == null || i < 0 || j < 0 || i >= arr.length || j >= arr.length) {
+            throw new IllegalArgumentException("Invalid indices for swap");
         }
-
-        if (left < right) {
-            int mid = (left + right) / 2;
-            mergeSort(arr, temp, left, mid);
-            mergeSort(arr, temp, mid + 1, right);
-            merge(arr, temp, left, mid, right);
-        }
-        metrics.exitRecursion();
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
     }
 
-    private void merge(int[] arr, int[] temp, int left, int mid, int right) {
-        // copy into reusable buffer
-        System.arraycopy(arr, left, temp, left, right - left + 1);
+    // shuffle array randomly (Fisher–Yates shuffle)
+    public static void shuffle(int[] arr) {
+        if (arr == null) return;
+        for (int i = arr.length - 1; i > 0; i--) {
+            int j = rand.nextInt(i + 1);
+            swap(arr, i, j);
+        }
+    }
 
-        int i = left, j = mid + 1, k = left;
-        while (i <= mid && j <= right) {
+    // partition (used in QuickSort & Select)
+    public static int partition(int[] arr, int left, int right, int pivot, MetricsCollector metrics) {
+        int i = left;
+        for (int j = left; j < right; j++) {
             metrics.incrementComparisons();
-            if (temp[i] <= temp[j]) {
-                arr[k++] = temp[i++];
+            if (arr[j] <= pivot) {
+                swap(arr, i, j);
                 metrics.incrementSwaps();
-            } else {
-                arr[k++] = temp[j++];
-                metrics.incrementSwaps();
+                i++;
             }
         }
-        while (i <= mid) {
-            arr[k++] = temp[i++];
-            metrics.incrementSwaps();
-        }
+        swap(arr, i, right);
+        metrics.incrementSwaps();
+        return i;
     }
 
-    private void insertionSort(int[] arr, int left, int right) {
-        for (int i = left + 1; i <= right; i++) {
-            int key = arr[i];
-            int j = i - 1;
-            while (j >= left) {
-                metrics.incrementComparisons();
-                if (arr[j] > key) {
-                    arr[j + 1] = arr[j];
-                    metrics.incrementSwaps();
-                    j--;
-                } else break;
-            }
-            arr[j + 1] = key;
+    // guard: check if array is sorted
+    public static boolean isSorted(int[] arr) {
+        if (arr == null) return false;
+        for (int i = 1; i < arr.length; i++) {
+            if (arr[i - 1] > arr[i]) return false;
         }
+        return true;
     }
 
-    // --- Simple test ---
-    public static void main(String[] args) {
-        MetricsCollector metrics = new MetricsCollector();
-        MergeSort sorter = new MergeSort(metrics);
-
-        int[] arr = {8, 3, 5, 1, 9, 6, 2, 7, 4};
-        sorter.sort(arr);
-
-        System.out.print("Sorted: ");
-        for (int num : arr) System.out.print(num + " ");
-        System.out.println("\nMetrics CSV: " + metrics.toCSV("MergeSort", arr.length));
+    // guard: validate not null and not empty
+    public static void checkArray(int[] arr) {
+        if (arr == null) throw new IllegalArgumentException("Array cannot be null");
+        if (arr.length == 0) throw new IllegalArgumentException("Array cannot be empty");
     }
 }
